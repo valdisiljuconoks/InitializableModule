@@ -3,9 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechFellow.InitializableModule", "TechFellow.InitializableModule.csproj", "{C95EEC9E-58DB-4FF9-BA94-36F3085DC492}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechFellow.InitializableModule", "TechFellow.InitializableModule\TechFellow.InitializableModule.csproj", "{C95EEC9E-58DB-4FF9-BA94-36F3085DC492}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechFellow.InitializableModule.Tests", "..\TechFellow.InitializableModule.Tests\TechFellow.InitializableModule.Tests.csproj", "{618560E3-C827-461F-80EB-3DD8DAA57FB9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechFellow.InitializableModule.Tests", "TechFellow.InitializableModule.Tests\TechFellow.InitializableModule.Tests.csproj", "{618560E3-C827-461F-80EB-3DD8DAA57FB9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B1E00C9E-B3F6-4DC9-8599-E6D7908DEEDD}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
