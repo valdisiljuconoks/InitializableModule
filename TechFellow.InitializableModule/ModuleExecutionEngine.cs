@@ -17,11 +17,26 @@ namespace TechFellow.InitializableModule
             var sw = new Stopwatch();
             foreach (var moduleDescriptor in modulesWithDep)
             {
-                sw.Restart();
-                moduleDescriptor.Module.Initialize();
-                sw.Stop();
+                var module = moduleDescriptor.Module;
+                try
+                {
+                    sw.Restart();
+                    module.Initialize();
+                    sw.Stop();
 
-                context.AddExecutionInfo(moduleDescriptor, sw.ElapsedMilliseconds);
+                    context.AddExecutionInfo(moduleDescriptor, sw.ElapsedMilliseconds);
+                }
+                finally
+                {
+                    try
+                    {
+                        module.Release();
+                    }
+                    catch (Exception e)
+                    {
+                        context.AddError(moduleDescriptor, e.Message);
+                    }
+                }
             }
 
             return context;

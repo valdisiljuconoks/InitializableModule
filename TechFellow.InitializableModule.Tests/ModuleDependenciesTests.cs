@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Owin;
 using StructureMap;
 using Xunit;
 
@@ -33,24 +34,6 @@ namespace TechFellow.InitializableModule.Tests
         }
 
         [Fact]
-        public void ModuleExecutionTests_ClientApi()
-        {
-            var process = new ModuleExecutionProcess(m => _container.GetInstance(m));
-            var context = process.Execute();
-
-            Assert.NotNull(context.Log);
-        }
-        
-        [Fact]
-        public void ModuleExecutionTests_WithActivator()
-        {
-            var process = new ModuleExecutionProcess();
-            var context = process.Execute();
-
-            Assert.NotNull(context.Log);
-        }
-
-        [Fact]
         public void ModuleExecutionTests()
         {
             var modules = new List<Type> { typeof(Module2), typeof(Module1), typeof(Module5), typeof(Module3), typeof(Module4) };
@@ -69,6 +52,34 @@ namespace TechFellow.InitializableModule.Tests
 
             var context = engine.RunModules(weighter.SortModules(modulesWithDep), new ModuleExecutionContext());
             Assert.NotEmpty(context.Log);
+        }
+
+        [Fact]
+        public void ModuleExecutionTests_ClientApi()
+        {
+            var process = new ModuleExecutionProcess(this._container.GetInstance);
+            var context = process.Execute();
+
+            Assert.NotNull(context.Log);
+        }
+
+        [Fact]
+        public void ModuleExecutionTests_WithActivator()
+        {
+            var process = new ModuleExecutionProcess();
+            var context = process.Execute();
+
+            Assert.NotNull(context.Log);
+        }
+
+        [Fact]
+        public void ModuleExecutionTests_WithAppBuilder()
+        {
+            var process = new ModuleExecutionProcess(new AppBuilder());
+            process.SetModulesTypes(new[] { typeof(Module10) });
+            var context = process.Execute();
+
+            Assert.NotNull(context.Log);
         }
 
         [Fact]
@@ -111,9 +122,33 @@ namespace TechFellow.InitializableModule.Tests
         }
     }
 
+    public class AppBuilder : IAppBuilder
+    {
+        public IAppBuilder Use(object middleware, params object[] args)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object Build(Type returnType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAppBuilder New()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDictionary<string, object> Properties { get; private set; }
+    }
+
     public class Module1 : IInitializableModule
     {
         public void Initialize()
+        {
+        }
+
+        public void Release()
         {
         }
     }
@@ -124,12 +159,20 @@ namespace TechFellow.InitializableModule.Tests
         public void Initialize()
         {
         }
+
+        public void Release()
+        {
+        }
     }
 
     [ModuleDependency(typeof(Module2))]
     public class Module3 : IInitializableModule
     {
         public void Initialize()
+        {
+        }
+
+        public void Release()
         {
         }
     }
@@ -140,12 +183,35 @@ namespace TechFellow.InitializableModule.Tests
         public void Initialize()
         {
         }
+
+        public void Release()
+        {
+        }
     }
 
     [ModuleDependency(typeof(Module4))]
     public class Module5 : IInitializableModule
     {
         public void Initialize()
+        {
+        }
+
+        public void Release()
+        {
+        }
+    }
+
+    public class Module10 : IInitializableModule
+    {
+        public Module10(IAppBuilder app)
+        {
+        }
+
+        public void Initialize()
+        {
+        }
+
+        public void Release()
         {
         }
     }
