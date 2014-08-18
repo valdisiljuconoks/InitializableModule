@@ -40,6 +40,15 @@ namespace TechFellow.InitializableModule.Tests
 
             Assert.NotNull(context.Log);
         }
+        
+        [Fact]
+        public void ModuleExecutionTests_WithActivator()
+        {
+            var process = new ModuleExecutionProcess();
+            var context = process.Execute();
+
+            Assert.NotNull(context.Log);
+        }
 
         [Fact]
         public void ModuleExecutionTests()
