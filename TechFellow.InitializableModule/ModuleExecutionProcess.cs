@@ -30,11 +30,18 @@ namespace TechFellow.InitializableModule
             this._app = app;
         }
 
-        public ModuleExecutionContext Execute()
+        public ModuleExecutionContext Execute(params Type[] modules)
         {
-            if (this._modules == null)
+            if (modules == null)
             {
-                this._modules = TypeHelper.GetTypesImplementingInterface<IInitializableModule>();
+                if (this._modules == null)
+                {
+                    this._modules = TypeHelper.GetTypesImplementingInterface<IInitializableModule>();
+                }
+            }
+            else
+            {
+                _modules = modules;
             }
 
             var modulesWithDep = this._modules.Select(

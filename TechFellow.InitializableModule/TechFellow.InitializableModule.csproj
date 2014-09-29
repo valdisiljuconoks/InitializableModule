@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAppBuilderExtensions.cs" />
     <Compile Include="ModuleDescriptor.cs" />
     <Compile Include="ModuleExecutionContext.cs" />
     <Compile Include="ModuleExecutionEngine.cs" />
