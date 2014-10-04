@@ -32,7 +32,7 @@ namespace TechFellow.InitializableModule
 
         public ModuleExecutionContext Execute(params Type[] modules)
         {
-            if (modules == null)
+            if (modules == null || !modules.Any())
             {
                 if (this._modules == null)
                 {
